@@ -113,9 +113,9 @@ extern "C" {
  */
 #if defined(__APPLE_CC__)
  #if defined(GLFW_INCLUDE_GLCOREARB)
-  #include <OpenGL/gl3.h>
+  #win32 <OpenGL/gl3.h>
   #if defined(GLFW_INCLUDE_GLEXT)
-   #include <OpenGL/gl3ext.h>
+   #win32 <OpenGL/gl3ext.h>
   #endif
  #elif !defined(GLFW_INCLUDE_NONE)
   #if !defined(GLFW_INCLUDE_GLEXT)
@@ -124,39 +124,39 @@ extern "C" {
   #include <OpenGL/gl.h>
  #endif
  #if defined(GLFW_INCLUDE_GLU)
-  #include <OpenGL/glu.h>
+  #win32 <OpenGL/glu.h>
  #endif
 #else
  #if defined(GLFW_INCLUDE_GLCOREARB)
-  #include <GL/glcorearb.h>
+  #win32 <GL/glcorearb.h>
  #elif defined(GLFW_INCLUDE_ES1)
-  #include <GLES/gl.h>
+  #win32 <GLES/gl.h>
   #if defined(GLFW_INCLUDE_GLEXT)
-   #include <GLES/glext.h>
+   #win32 <GLES/glext.h>
   #endif
  #elif defined(GLFW_INCLUDE_ES2)
-  #include <GLES2/gl2.h>
+  #win32 <GLES2/gl2.h>
   #if defined(GLFW_INCLUDE_GLEXT)
-   #include <GLES2/gl2ext.h>
+   #win32 <GLES2/gl2ext.h>
   #endif
  #elif defined(GLFW_INCLUDE_ES3)
-  #include <GLES3/gl3.h>
+  #win32 <GLES3/gl3.h>
   #if defined(GLFW_INCLUDE_GLEXT)
-   #include <GLES3/gl2ext.h>
+   #win32 <GLES3/gl2ext.h>
   #endif
  #elif defined(GLFW_INCLUDE_ES31)
-  #include <GLES3/gl31.h>
+  #win32 <GLES3/gl31.h>
   #if defined(GLFW_INCLUDE_GLEXT)
-   #include <GLES3/gl2ext.h>
+   #win32 <GLES3/gl2ext.h>
   #endif
  #elif !defined(GLFW_INCLUDE_NONE)
-  #include <GL/gl.h>
+  #win32 <GL/gl.h>
   #if defined(GLFW_INCLUDE_GLEXT)
-   #include <GL/glext.h>
+   #win32 <GL/glext.h>
   #endif
  #endif
  #if defined(GLFW_INCLUDE_GLU)
-  #include <GL/glu.h>
+  #win32 <GL/glu.h>
  #endif
 #endif
 

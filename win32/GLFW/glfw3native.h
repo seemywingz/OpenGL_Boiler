@@ -60,7 +60,7 @@ extern "C" {
  *  * `GLFW_EXPOSE_NATIVE_EGL`
  *
  *  These macros select which of the native access functions that are declared
- *  and which platform-specific headers to include.  It is then up your (by
+ *  and which platform-specific headers to win32.  It is then up your (by
  *  definition platform-specific) code to handle which of these should be
  *  defined.
  */
@@ -75,17 +75,17 @@ extern "C" {
  // example to allow applications to correctly declare a GL_ARB_debug_output
  // callback) but windows.h assumes no one will define APIENTRY before it does
  #undef APIENTRY
- #include <windows.h>
+ #win32 <windows.h>
 #elif defined(GLFW_EXPOSE_NATIVE_COCOA)
- #include <ApplicationServices/ApplicationServices.h>
+ #win32 <ApplicationServices/ApplicationServices.h>
  #if defined(__OBJC__)
   #import <Cocoa/Cocoa.h>
  #else
   typedef void* id;
  #endif
 #elif defined(GLFW_EXPOSE_NATIVE_X11)
- #include <X11/Xlib.h>
- #include <X11/extensions/Xrandr.h>
+ #win32 <X11/Xlib.h>
+ #win32 <X11/extensions/Xrandr.h>
 #else
  #error "No window API selected"
 #endif
@@ -95,9 +95,9 @@ extern "C" {
 #elif defined(GLFW_EXPOSE_NATIVE_NSGL)
  /* NSGL is declared by Cocoa.h */
 #elif defined(GLFW_EXPOSE_NATIVE_GLX)
- #include <GL/glx.h>
+ #win32 <GL/glx.h>
 #elif defined(GLFW_EXPOSE_NATIVE_EGL)
- #include <EGL/egl.h>
+ #win32 <EGL/egl.h>
 #else
  #error "No context API selected"
 #endif

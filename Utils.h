@@ -1,11 +1,11 @@
 #ifndef UTILS_H
 
 
-#define GLEW_STATIC
+//#define GLEW_STATIC
 #include <iostream>
 #include <GL/glew.h>
-#include <thread>
-#include <chrono>
+//#include <thread>
+//#include <chrono>
 
 
 //    void sleepMills(int mills){
