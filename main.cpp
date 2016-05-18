@@ -1,9 +1,9 @@
 
 
 //#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "Square.h"
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+#include "Square.h" //Utils.h
 
 // Window controls
 GLFWwindow * window;
@@ -35,33 +35,43 @@ void draw(){
 
 int main(){
 
-    glfwInit();
+  glfwInit();
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    if(!fullScreen)
-        window = glfwCreateWindow(800, 600, "OpenGL", nullptr, nullptr); // Windowed
-    else
-        window = glfwCreateWindow(800, 600, "OpenGL", glfwGetPrimaryMonitor(), nullptr); // Fullscreen
+  if(!fullScreen)
+   window = glfwCreateWindow(800, 600, "OpenGL", nullptr, nullptr); // Windowed
+  else
+    window = glfwCreateWindow(800, 600, "OpenGL", glfwGetPrimaryMonitor(), nullptr); // Fullscreen
 
-    glfwMakeContextCurrent(window);
-    ckGLError("GLFW context");
+  if (!window) {
+   fprintf (stderr, "ERROR: could not open window with GLFW3\n");
+   glfwTerminate();
+   return 1;
+  }
 
-    glewExperimental = GL_TRUE;
-    glewInit();
-    ckGLError("init GLEW");
+  glfwMakeContextCurrent(window);
+  ckGLError("GLFW context");
 
-    square = new Square();
+  glewExperimental = GL_TRUE;
+  glewInit();
+  ckGLError("init GLEW");
 
-    while(!glfwWindowShouldClose(window)){
-        keyHandler();
-        draw();
-    }
+  // tell GL to only draw onto a pixel if the shape is closer to the viewer
+//  glEnable (GL_DEPTH_TEST); // enable depth-testing
+//  glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
 
-    glfwTerminate();
+  square = new Square();
 
+  while(!glfwWindowShouldClose(window)){
+    keyHandler();
+    draw();
+  }
+
+  glfwTerminate();
+  return 0;
 }//..
