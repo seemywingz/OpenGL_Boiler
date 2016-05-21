@@ -7,7 +7,7 @@ if (WIN32)
     link_directories( win32/dll )
     link_libraries( glfw3 glew32 opengl32 )
 
-    set(SOURCE_FILES main.cpp Square.h Position.h)
+    set(SOURCE_FILES src/main.cpp src/Square.h src/Position.h)
     add_executable(square ${SOURCE_FILES})
 endif (WIN32)
 
@@ -18,8 +18,8 @@ if (APPLE)
         link_libraries(${GLEW_LIBRARIES})
     endif()
 
-    add_subdirectory(vendor/glfw)
-    include_directories(vendor/glfw/include)
+#    add_subdirectory(vendor/glfw)
+#    include_directories(vendor/glfw/include)
     target_link_libraries(square glfw ${GLFW_LIBRARIES} ${OPENGL_gl_LIBRARY})
 endif (APPLE)
 

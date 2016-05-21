@@ -26,7 +26,7 @@ void draw(){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-//    square->draw();
+    square->draw();
 
     glfwSwapBuffers(window);
 }//..
@@ -63,7 +63,7 @@ int main(){
 //  glEnable (GL_DEPTH_TEST); // enable depth-testing
 //  glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
 
-//  square = new Square();
+  square = new Square();
 
   while(!glfwWindowShouldClose(window)){
     keyHandler();
