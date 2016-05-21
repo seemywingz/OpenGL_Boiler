@@ -21,7 +21,7 @@ protected:
             ebo;
 
     // gl shader data locations
-    GLint
+    const GLint
             vPos = 0,
             vColor =1;
 
@@ -45,7 +45,7 @@ protected:
     const GLchar* vertexSource =
             "#version 430 core\n"
                     "layout(location = 0) in vec3 vPos;"
-                    "layout(location = 1) in vec4 vColor;"
+                    "layout(location = 1) uniform vec4 vColor;"
                     "out vec4 color;"
                     "void main() {"
                     "  color = vColor;"
@@ -57,7 +57,6 @@ protected:
                     "out vec4 fcolor;"
                     "void main() {"
                     "   fcolor = color;"
-//                    "   outColor = vec4(1.0, 0.0, 1.0, 1.0);"
                     "}";
 
 public:
@@ -78,7 +77,7 @@ public:
         glGenBuffers(1, &vertexBuffer); // Generate 1 buffer
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer); // make active buffer
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-//        ckGLError("VBO");
+        ckGLError("VBO");
 
         GLuint vertexShader = compileShader(GL_VERTEX_SHADER,vertexSource,"Vertex");
         GLuint fragmentShader = compileShader(GL_FRAGMENT_SHADER,fragmentSource,"Fragment");
@@ -90,31 +89,33 @@ public:
         glLinkProgram(shaderProgram);
         ckGLError("Link Shader Program");
 
-//        color = glGetUniformLocation(shaderProgram, "triangleColor");
-//        glUniform3f(color, .00f, 1.0f, 1.0f);
-
         // Specify the layout of the vertex data
         glEnableVertexAttribArray(vPos);
         glVertexAttribPointer(vPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        ckGLError("Set vertex data layout");
+
         glEnableVertexAttribArray(vColor);
         glVertexAttribPointer(vColor, 4, GL_FLOAT, GL_FALSE, 0, 0);
-      ckGLError("Set vertex data layout");
+      ckGLError("Set color data layout");
     }//..
 
     void draw(){
+//        GLboolean transpose = GL_TRUE;
+//        const GLfloat *matx = { ... };
+//        glUniformMatrix4fv(vColor, 3, transpose, matx);
 
-//      glUniform3f( vPos , pos->x += 0.1f, pos->y, pos->z);
-      glUniform4f( 1 , 1,0,0,1);
 //      std::cout << "x: " << (pos->x) << std::endl;
 
       glPushMatrix();
 
+        glUniform4f( vColor , 1.0, 1.0, 1.0, 1.0);
         glUseProgram (shaderProgram);
         glBindVertexArray (vao);
 
+
 //        glTranslated(10,1,1);
         // Draw a triangle from the 3 vertices
-//        glDrawArrays(GL_TRIANGLES, 0, 3);
+//        glDrawArrays(GL_TRIANGLES, 6, 12);
 //        glDrawArrays(GL_TRIANGLES, 6, 3);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
