@@ -1,9 +1,8 @@
 
-
-//#define GLEW_STATIC
+#define GLEW_STATIC
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
-#include "Square.h" //Utils.h
+#include "Square.h"
 
 // Window controls
 GLFWwindow * window;
@@ -11,7 +10,6 @@ bool fullScreen = false;
 
 // Objects
 Square * square;
-
 
 // Function Declarations
 void keyHandler();
@@ -28,7 +26,7 @@ void draw(){
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    square->draw();
+//    square->draw();
 
     glfwSwapBuffers(window);
 }//..
@@ -61,11 +59,11 @@ int main(){
   glewInit();
   ckGLError("init GLEW");
 
-  // tell GL to only draw onto a pixel if the shape is closer to the viewer
+//  tell GL to only draw onto a pixel if the shape is closer to the viewer
 //  glEnable (GL_DEPTH_TEST); // enable depth-testing
 //  glDepthFunc (GL_LESS); // depth-testing interprets a smaller value as "closer"
 
-  square = new Square();
+//  square = new Square();
 
   while(!glfwWindowShouldClose(window)){
     keyHandler();

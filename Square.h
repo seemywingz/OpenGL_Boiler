@@ -5,7 +5,7 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 
-#include <GL/glew.h>
+#include "GL/glew.h"
 #include <stdio.h>
 #include "Utils.h"
 #include "Position.h"
