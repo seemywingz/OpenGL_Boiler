@@ -1,5 +1,5 @@
 //
-// Created by KevAdmin on 4/25/2015.
+// Created by Kevin Jayne on 4/25/2015.
 //
 
 #ifndef SQUARE_H
@@ -20,7 +20,10 @@ protected:
             vao,
             ebo;
 
-    GLint posAttrib;
+    // gl shader data locations
+    GLint
+            vPos = 0,
+            vColor =1;
 
     Position * pos = new Position(0 ,0 ,0);
 
@@ -40,20 +43,21 @@ protected:
 
     // Shader sources
     const GLchar* vertexSource =
-            "#version 400 core\n"
-                    "layout(location = 0) in vec3 position;"
-                    "uniform mat4 model;"
-                    "uniform mat4 view;"
-                    "uniform mat4 projection;"
+            "#version 430 core\n"
+                    "layout(location = 0) in vec3 vPos;"
+                    "layout(location = 1) in vec4 vColor;"
+                    "out vec4 color;"
                     "void main() {"
-                    "  gl_Position = vec4(position, 1.0f);"
-//                    "  gl_Position = projection * view * model * vec4(position, 1.0f);"
+                    "  color = vColor;"
+                    "  gl_Position = vec4(vPos, 1.0f);"
                     "}";
     const GLchar* fragmentSource =
-            "#version 400 core\n"
-                    "out vec4 outColor;"
+            "#version 430 core\n"
+                    "in vec4 color;"
+                    "out vec4 fcolor;"
                     "void main() {"
-                    "   outColor = vec4(1.0, 0.0, 1.0, 1.0);"
+                    "   fcolor = color;"
+//                    "   outColor = vec4(1.0, 0.0, 1.0, 1.0);"
                     "}";
 
 public:
@@ -83,29 +87,25 @@ public:
         shaderProgram = glCreateProgram();
         glAttachShader(shaderProgram, vertexShader);
         glAttachShader(shaderProgram, fragmentShader);
-//        glBindFragDataLocation(shaderProgram, 0, "outColor");
         glLinkProgram(shaderProgram);
-        glUseProgram(shaderProgram);
         ckGLError("Link Shader Program");
 
 //        color = glGetUniformLocation(shaderProgram, "triangleColor");
 //        glUniform3f(color, .00f, 1.0f, 1.0f);
 
         // Specify the layout of the vertex data
-      posAttrib = glGetAttribLocation(shaderProgram, "position");
-      std::cout << "posAttrib: " << posAttrib << std::endl;
-      glEnableVertexAttribArray(posAttrib);
-      glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        glEnableVertexAttribArray(vPos);
+        glVertexAttribPointer(vPos, 3, GL_FLOAT, GL_FALSE, 0, 0);
+        glEnableVertexAttribArray(vColor);
+        glVertexAttribPointer(vColor, 4, GL_FLOAT, GL_FALSE, 0, 0);
       ckGLError("Set vertex data layout");
-      posAttrib = glGetAttribLocation(shaderProgram, "position");
     }//..
 
     void draw(){
 
-//      std::cout << "posAttrib: ";
-//      posAttrib == -1 ? std::cout << "Not Found\n" : std::cout << posAttrib << std::endl;
-      glUniform3f( posAttrib , pos->x += 0.1f, pos->y, pos->z);
-//      std::cout << (pos->x += 0.1) << std::endl;
+//      glUniform3f( vPos , pos->x += 0.1f, pos->y, pos->z);
+      glUniform4f( 1 , 1,0,0,1);
+//      std::cout << "x: " << (pos->x) << std::endl;
 
       glPushMatrix();
 
@@ -114,7 +114,8 @@ public:
 
 //        glTranslated(10,1,1);
         // Draw a triangle from the 3 vertices
-//        glDrawArrays(GL_TRIANGLES, 0,3);
+//        glDrawArrays(GL_TRIANGLES, 0, 3);
+//        glDrawArrays(GL_TRIANGLES, 6, 3);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
       glPopMatrix();

@@ -35,7 +35,7 @@
         GLint status;
         glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
         if(status == GL_TRUE){
-            printf("%s %s",type,"Shader Compiled Successfully\n");
+            printf("%s%s %s","\n",type,"Shader Compiled Successfully\n");
         }
         char buffer[512];
         glGetShaderInfoLog(shader, 512, NULL, buffer);
@@ -54,7 +54,7 @@
 
     static void ckGLError(const char* msg){
         int err = glGetError();
-        printf("%s %s %d %s",msg,"GLError: ",err,"\n");
+        printf("%s %s %s %d %s","\n",msg,"\n   GLError: ",err,"\n");
     }//..
 
 #endif
