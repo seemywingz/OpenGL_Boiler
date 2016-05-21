@@ -43,14 +43,20 @@ protected:
 
     // Shader sources
     const GLchar* vertexSource =
-            "#version 430 core\n"
+            "#version 430 compatibility\n"
                     "layout(location = 0) in vec3 vPos;"
                     "layout(location = 1) uniform vec4 vColor;"
                     "out vec4 color;"
+                    "layout (std140) uniform Matrices {\n"
+                    "    mat4 projModelViewMatrix;\n"
+                    "    mat3 normalMatrix;\n"
+                    "};"
                     "void main() {"
                     "  color = vColor;"
-                    "  gl_Position = vec4(vPos, 1.0f);"
+                    "  gl_Position = vec4(vPos, 1.0);"
+//                    "  gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;"
                     "}";
+
     const GLchar* fragmentSource =
             "#version 430 core\n"
                     "in vec4 color;"
@@ -108,15 +114,14 @@ public:
 
       glPushMatrix();
 
-        glUniform4f( vColor , 1.0, 1.0, 1.0, 1.0);
+        glUniform4f( vColor, pos->x = pos->x > 1 ? 0 : pos->x + 0.001, 1.0, 1.0, 1.0);
+        glUniform3f( vPos, 4.5, 0.5, 0.5);
+
         glUseProgram (shaderProgram);
         glBindVertexArray (vao);
 
-
-//        glTranslated(10,1,1);
         // Draw a triangle from the 3 vertices
-//        glDrawArrays(GL_TRIANGLES, 6, 12);
-//        glDrawArrays(GL_TRIANGLES, 6, 3);
+//        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
       glPopMatrix();
